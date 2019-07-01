@@ -1,4 +1,14 @@
 #!/bin/bash
+
+# Condition to check if the script is launch in the right directory.
+if [[ $0 != "setup/install.bash"  && $0 != "./setup/install.bash" ]]
+then 
+    echo "You're in the wrong directory to launch the script."
+    echo "Please set your directory to capra_toolbox and launch the script from setup/install.bash"
+    echo "You're current directory : $0"
+    exit
+fi
+
 source setup/env.sh
 
 read -p "Do you want to install the full-desktop version ? [Y/n]" -n 1 -r
