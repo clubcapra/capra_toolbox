@@ -3,7 +3,7 @@
 if [[ $UID != 0 ]]; then
     echo "Please run this script with sudo:"
     echo "sudo $0 $*"
-    echo "Now that I have you attention, be sure to have downloaded ros-melodic-desktop-full before running this"
+    echo "Now that I have your attention, be sure to have downloaded ros-melodic-desktop-full before running this."
     echo "List of unincluded capra packages:"
 
     rejects=(
@@ -14,6 +14,12 @@ if [[ $UID != 0 ]]; then
         "yolo_hazmat"
         "TPV_controller"
     )
+
+    for i in "${rejects[@]}"
+    do
+	    echo "$i"
+    done
+
 
     exit 1
 fi
@@ -80,6 +86,10 @@ echo "Building workspace, be sure to verify if any error occurs"
 cd ~/capra_ws
 source /opt/ros/melodic/setup.bash
 catkin_make -DPYTHON_EXECUTABLE=/usr/bin/python2 -Wno-dev
+
+# Give build ownership to user
+current_user=$(logname)
+chown -R $current_user ~/capra_ws/
 
 echo "Initial capra setup complete"
 
